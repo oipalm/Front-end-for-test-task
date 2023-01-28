@@ -103,7 +103,6 @@ class OrdersList extends Component {
 
     componentDidMount() {
         workorders.getOrders().then((data) => {
-            console.log(data);
             this.setState({
                 orders: data.results, 
                 nextPageURL: data.next, 
