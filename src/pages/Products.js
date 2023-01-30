@@ -49,27 +49,24 @@ class Products extends Component {
         });
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (prevState.status !== this.state.status) {
-            workorders.getProducts(this.prodID).then((data) => {
-                this.setState({
-                    products: data, 
-                });
-            });
-        }
-    }
-
     addProduct(id, data) {
-        workorders.postProducts(id, data).then((data) => {
+        workorders.postProducts(id, data).then((status) => {
             this.setState({
-                status: data, 
+                status: status,
             });
-            console.log(data);
+            //console.log(data);
+            if (status === 201) {
+                workorders.getProducts(this.prodID).then((data) => {
+                    this.setState({
+                        products: data,
+                    });
+                });
+            }
         });
     }
 
     render() {
-        console.log(this.state.status);
+        //console.log(this.state.status);
         return (
             <>
                 <Row justify="center">
