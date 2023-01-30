@@ -49,6 +49,16 @@ class Products extends Component {
         });
     }
 
+    componentDidUpdate() {
+        if (this.state.status === 201) {
+            workorders.getProducts(this.prodID).then((data) => {
+                this.setState({
+                    products: data, 
+                });
+            });
+        }
+    }
+
     addProduct(id, data) {
         workorders.postProducts(id, data).then((data) => {
             this.setState({
@@ -92,7 +102,6 @@ class Products extends Component {
                                         layout="inline"
                                         onFinish={(value) => {
                                             this.addProduct(Number(this.prodID), {weight: Number(value.weight)});
-                                            this.setState({posted: true});
                                             this.componentDidMount();
                                         }}
                                     >
