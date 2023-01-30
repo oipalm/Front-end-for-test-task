@@ -49,7 +49,15 @@ class Products extends Component {
         });
     }
 
-    
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.status !== this.state.status) {
+            workorders.getProducts(this.prodID).then((data) => {
+                this.setState({
+                    products: data, 
+                });
+            });
+        }
+    }
 
     addProduct(id, data) {
         workorders.postProducts(id, data).then((data) => {
@@ -94,7 +102,7 @@ class Products extends Component {
                                         layout="inline"
                                         onFinish={(value) => {
                                             this.addProduct(Number(this.prodID), {weight: Number(value.weight)});
-                                            this.componentDidMount();
+                                            //this.componentDidMount();
                                         }}
                                     >
                                         <Form.Item
