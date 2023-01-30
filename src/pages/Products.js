@@ -37,7 +37,7 @@ class Products extends Component {
         ];
         this.state = {
             products: [],
-            posted: false
+            status: 0,
         };
     }
 
@@ -50,11 +50,16 @@ class Products extends Component {
     }
 
     addProduct(id, data) {
-        workorders.postProducts(id, data);
+        workorders.postProducts(id, data).then((data) => {
+            this.setState({
+                status: data, 
+            });
+            console.log(data);
+        });
     }
 
     render() {
-        console.log(this.prodID);
+        console.log(this.state.status);
         return (
             <>
                 <Row justify="center">
@@ -69,7 +74,11 @@ class Products extends Component {
                             <Row>
                                 <Col span={24}>
                                     {
-                                        this.state.posted?<Alert message="Продукт добавлен" type="success" style={{marginBottom: "20px"}}/>:<span></span>
+                                        this.state.status >= 201?
+                                        <Alert 
+                                            message={this.state.status >= 400?"Ошибка":"Продукт добавлен"} 
+                                            type={this.state.status >= 400?"error":'success'} style={{marginBottom: "20px"}}/>:
+                                        <span></span>
                                     }
                                     <Table
                                         rowKey={(record) => record.id}
