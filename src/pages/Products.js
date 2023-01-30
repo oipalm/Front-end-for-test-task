@@ -49,15 +49,7 @@ class Products extends Component {
         });
     }
 
-    componentDidUpdate() {
-        if (this.state.status === 201) {
-            workorders.getProducts(this.prodID).then((data) => {
-                this.setState({
-                    products: data, 
-                });
-            });
-        }
-    }
+    
 
     addProduct(id, data) {
         workorders.postProducts(id, data).then((data) => {
