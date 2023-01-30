@@ -47,7 +47,7 @@ class Workorders {
     postProducts(id, data) {
         const url = `${AuthParam.url}/api/v1/workorders/${id}/products/`;
         console.log(data);
-        return axios.post(url, data.data, {headers: {Authorization: AuthParam.token,  "Content-Type": "application/json"}});
+        return axios.post(url, data, {headers: {Authorization: AuthParam.token,  "Content-Type": "application/json"}});
     }
     
 }
