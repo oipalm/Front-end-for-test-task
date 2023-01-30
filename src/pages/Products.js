@@ -8,7 +8,8 @@ import {
     Table,
     Form,
     Input,
-    Button
+    Button,
+    Alert
 } from 'antd';
 
 const workorders = new Workorders();
@@ -36,6 +37,7 @@ class Products extends Component {
         ];
         this.state = {
             products: [],
+            posted: false
         };
     }
 
@@ -66,6 +68,9 @@ class Products extends Component {
                         >
                             <Row>
                                 <Col span={24}>
+                                    {
+                                        this.state.posted?<Alert message="Продукт добавлен" type="success" style={{marginBottom: "20px"}}/>:<span></span>
+                                    }
                                     <Table
                                         rowKey={(record) => record.id}
                                         size='small'
@@ -78,6 +83,8 @@ class Products extends Component {
                                         layout="inline"
                                         onFinish={(value) => {
                                             this.addProduct(Number(this.prodID), {weight: Number(value.weight)});
+                                            this.setState({posted: true});
+                                            this.componentDidMount();
                                         }}
                                     >
                                         <Form.Item
